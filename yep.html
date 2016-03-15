@@ -1,0 +1,153 @@
+<!doctype html>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+<script src="jquery-1.7.1.min.js"></script>
+<style>
+body { 
+	font-family: "Helvetica Neue", "Open Sans", Arial, Helvetica, sans-serif; 
+	color: #333;
+}
+
+#container {
+	width: 15%;
+}
+
+.hugger {
+	width: 100%;
+	height: 50px;
+	position: relative;
+}
+
+.backbar {
+	position: absolute;
+	left: -1px;
+	top: 4px;
+	width: 100%;
+	background: rgb(0, 180, 241);
+	height: 40px;	
+	padding-right: 0px;
+
+	border: solid 1px white;
+	border-color: rgba(255,255,255,0.2) rgba(255,255,255,0.1) rgba(0,0,0,0.1) rgba(255,255,255,0.01);
+
+	border-radius: 25px;
+}
+
+input[type=radio] {
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	appearance: none;
+	outline: none;
+	display: block;
+
+	position: absolute;
+	top: 6px;
+	left: 0%;
+
+	margin-left: 4px;
+	margin-top: 4px;
+
+	border-style: solid;
+	border-color: rgba(255,255,255,0.2) rgba(255,255,255,0.1) rgba(0,0,0,0.025) rgba(255,255,255,0.01);
+	border-width: 1px;
+	border-radius: 20px;
+	width: 30px;
+	background: rgb(52, 193, 246);
+	height: 30px;
+	cursor: pointer;
+}
+
+input[type=radio]:nth-of-type(2) {
+	left: 50%;
+	margin-left: -15px;
+}
+input[type=radio]:nth-of-type(3) {
+	left: 100%;
+	margin-left: -34px;
+}
+
+@keyframes left_to_left {
+	0% { left: 0%; margin-left: 0px; }
+	100% { left: 0%; margin-left: 0px; }
+}
+@keyframes left_to_middle {
+	0% { left: 0%; margin-left: -10px; }
+	100% { left: 50%; margin-left: -20px; }
+}
+@keyframes left_to_right {
+	0% { left: 0%; margin-left: -10px; }
+	100% { left: 100%; margin-left: -40px;}
+}
+
+@keyframes middle_to_left {
+	0% { left: 50%; margin-left: -20px; }
+	100% { left: 0%; margin-left: -10px; }
+}
+@keyframes middle_to_middle {
+	0% { left: 50%; margin-left: -20px; }
+	100% { left: 50%; margin-left: -20px; }
+}
+@keyframes middle_to_right {
+	0% { left: 50%; margin-left: -20px; }
+	100% { left: 100%; margin-left: -40px; }
+}
+
+@keyframes right_to_left {
+	0% { left: 100%; margin-left: -40px; }
+	100% { left: 0%; margin-left: -10px; }
+}
+@keyframes right_to_middle {
+	0% { left: 100%; margin-left: -40px; }
+	100% { left: 50%; margin-left: -20px; }
+}
+@keyframes right_to_right {
+	0% { left: 100%; margin-left: -40px; }
+	100% { left: 100%; margin-left: -40px; }
+}
+
+.selector {
+	/*display: none;*/
+
+	position: absolute;
+	top: 0px;
+
+	left: 50%; margin-left: -20px;
+
+	width: 50px;
+	background: rgb(9, 119, 182);
+	height: 50px;
+	border-radius: 25px;
+
+	animation-name: to_left;
+	animation-duration: 0.25s;
+	/*animation-timing-function: cubic-bezier(1.0,0.2,0.5,0.0);*/
+	animation-fill-mode: forwards;
+}
+</style>
+
+<div id='container'>
+	TL;DR Level
+	<div class='hugger'>
+		<div class='backbar'></div>
+		<input type='radio' name='tldr' value="left">
+		<input type='radio' name='tldr' value="middle" checked>
+		<input type='radio' name='tldr' value="right">
+		<div class='selector'></div>
+	</div>
+
+	<div style="width:100%;">
+		<div style="float:left;width:30%;">ADHD</div>
+		<div style="float:right;text-align:right;width:30%;">Rambling</div>
+		<div style="margin:0 auto;width:30%;text-align:center;">Normal</div>
+	</div>
+</div>
+
+<script>
+var prevSelection = 'middle';
+$('input[type=radio]').on('change', function () { 
+	var selection = $('input[name=tldr]:checked').val();
+	var animName = prevSelection + '_to_' + selection;
+	$('.selector').css('animation-name', animName);
+	prevSelection = selection;
+});
+</script>
+
